@@ -1,2 +1,2 @@
 # isometric
-ismometric demo
+isometric demo
