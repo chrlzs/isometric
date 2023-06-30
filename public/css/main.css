@@ -1,0 +1,78 @@
+@import "colors.css";
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap"); /* https://fonts.google.com/specimen/JetBrains+Mono */
+
+body {
+  background: var(--primary);
+  color: var(--secondary);
+  font-family: "JetBrains Mono", monospace;
+
+  & h1 {
+    color: var(--salmon);
+  }
+
+  & h2 {
+    color: var(--magenta);
+  }
+}
+
+#stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Grid styles */
+.grid {
+  width: 350px; height: 350px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  /* The CSS to get the Isometric Effect */
+  transform: rotateX(60deg) rotateZ(45deg);
+  transform-style: preserve-3d;
+  box-shadow:.25em .25em 1em rgba(0,0,0,.2);
+}
+
+.cell {
+  background-color: #fff; 
+  border: 1px solid var(--salmon); 
+  width: 10em;
+  height: 10em;
+}
+
+
+.cell-solid {
+  background:green !important;
+  transform: translateZ(10px);
+  transform-style: preserve-3d;
+}
+
+.cell-solid:before{
+  transform:rotateX(-90deg) translateY(1em);
+  box-shadow:inset 0em -.125em .25em rgba(0,0,0,.1);
+  content:"";
+  background:darkcyan;
+  position: absolute;
+  transform-origin: 100% 100%;
+  display: block;
+  height: 70px;
+  width: 25px;
+}
+
+.cell-solid:after {
+  transform:rotateY(90deg) translateX(1em);
+  box-shadow:inset -.125em 0em .25em rgba(0,0,0,.1);
+  content:"";
+  background:darkcyan;
+  position: absolute;
+  transform-origin: 100% 100%;
+  width: 70px;
+  height: 25px;
+  display: block;
+
+}
+
+
+.cell-entity {
+  background-color: var(--purple);
+}
