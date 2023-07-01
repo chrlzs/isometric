@@ -9,8 +9,7 @@ class App {
   static gridElement;
 
   static init() {
-    this.updateVersionText();
-    this.grid = new Grid(5, 5);
+    this.grid = new Grid(10, 10);
     this.entity = new Entity(0, 0);
     this.gridElement = document.querySelector('.grid');
     this.createGrid();
@@ -20,8 +19,6 @@ class App {
   static updateVersionText() {
     let ver = new Version();
     let version = ver.getVersion();
-    let span = document.getElementById("version");
-    span.textContent = version;
     this.setPageTitle(version);
   }
 
@@ -38,6 +35,15 @@ class App {
     this.grid.setCell(3, 0, 0);
     this.grid.setCell(4, 0, 1);
     this.grid.setCell(4, 4, 1);
+
+    this.grid.setCell(5, 0, 1);
+    this.grid.setCell(6, 0, 0);
+    this.grid.setCell(7, 0, 0);
+    this.grid.setCell(8, 1, 1);
+    this.grid.setCell(8, 2, 1);
+    this.grid.setCell(9, 0, 0);
+    this.grid.setCell(10, 0, 1);
+    this.grid.setCell(10, 4, 1);
 
     console.log(this.grid.isSolid(this.entity.x, this.entity.y)); // false
 
