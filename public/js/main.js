@@ -39,9 +39,9 @@ class App {
     this.grid.setCell(5, 0, 1);
     this.grid.setCell(6, 0, 0);
     this.grid.setCell(7, 0, 0);
-    this.grid.setCell(8, 1, 1);
-    this.grid.setCell(8, 2, 1);
-    this.grid.setCell(9, 0, 0);
+    this.grid.setCell(8, 1, 2);
+    this.grid.setCell(8, 2, 2);
+    this.grid.setCell(9, 0, 2);
     this.grid.setCell(10, 0, 1);
     this.grid.setCell(10, 4, 1);
 
@@ -101,6 +101,14 @@ class App {
 
         if (this.grid.isSolid(x, y)) {
           cellElement.classList.add('cell-solid');
+        }
+
+        if (this.grid.isFlora(x, y)) {
+          cellElement.classList.add('flora');
+        }
+
+        if (this.grid.isWater(x, y)) {
+          cellElement.classList.add('water');
         }
 
         if (x === targetX && y === targetY) {

@@ -21,7 +21,21 @@ class Grid {
 
   isSolid(x, y) {
     if (this.isValidPosition(x, y)) {
+      return this.cells[y][x] > 0;
+    }
+    return false;
+  }
+
+  isFlora(x, y) {
+    if (this.isValidPosition(x, y)) {
       return this.cells[y][x] === 1;
+    }
+    return false;
+  }
+
+  isWater(x, y) {
+    if (this.isValidPosition(x, y)) {
+      return this.cells[y][x] === 2;
     }
     return false;
   }

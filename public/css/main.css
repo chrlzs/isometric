@@ -31,7 +31,7 @@ body {
   /* The CSS to get the Isometric Effect */
   transform: rotateX(60deg) rotateZ(45deg);
   transform-style: preserve-3d;
-  box-shadow:.25em .25em 1em rgba(0,0,0,.2);
+  box-shadow:.25em .25em 1em rgba(0,0,0,.1);
 
 }
 
@@ -43,15 +43,67 @@ body {
 
 }
 
-
-.cell-solid {
-  background:green !important;
+.cell-solid.water {
   transform: translateZ(1px);
-  transform-style: preserve-3d;
+  background-color: blue;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.cell-solid.water:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-left: solid 1px darkblue;
+  border-top: solid 1px darkblue;
+}
+
+.cell-solid.water:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('../img/water.svg') no-repeat center center fixed;
+  background-size: cover;
+  z-index: -1;
+  opacity: .5;
+}
+
+.cell-solid.water:before {
+  animation: water-animation 5s infinite linear;
+}
+
+@keyframes water-animation {
+  0% {
+    background-position: 5px 5px;
+  }
+  50% {
+    background-position: 10px 10px;
+  }
+  100% {
+    background-position: 5px 5px;
+  }
 }
 
 
-.cell-solid:before{
+.cell-solid.flora {
+  transform: translateZ(1px);
+  transform-style: preserve-3d;
+  background-image: url(../img/grass.svg);
+  background-repeat: repeat;
+  background-size: contain;
+  background-position: center 5px;
+}
+
+
+.cell-solid.flora:before{
   transform:rotateX(-90deg) rotateY(20deg) translateY(0em) translateX(0em);
   box-shadow:inset 0em -.125em .25em rgba(0,0,0,.1);
   content:"";
@@ -69,7 +121,7 @@ body {
 }
 
 
-.cell-solid:after {
+.cell-solid.flora:after {
   transform:rotateX(-90deg) rotateY(20deg) translateY(0em) translateX(0em);
   box-shadow:inset 0em -.125em .25em rgba(0,0,0,.1);
   content:"";
