@@ -80,16 +80,24 @@ class App {
 
   static animatePath(path) {
     let delay = 100; // Delay between rendering each cell in milliseconds
+    let prevX = this.entity.x;
+    let prevY = this.entity.y;
 
     for (let i = 0; i < path.length; i++) {
       const { x, y } = path[i];
+      const direction = getMovementDirection(prevX, prevY, x, y);
+      console.log("direction is " + direction);
+      prevX = x;
+      prevY = y;
+
       setTimeout(() => {
-        this.displayGrid(x, y);
+        this.displayGrid(x, y, direction);
       }, i * delay);
     }
-  }
+  } 
 
-  static displayGrid(targetX, targetY) {
+
+  static displayGrid(targetX, targetY, direction) {
     this.gridElement.innerHTML = '';
 
     for (let y = 0; y < this.grid.height; y++) {
@@ -113,12 +121,53 @@ class App {
 
         if (x === targetX && y === targetY) {
           cellElement.classList.add('cell-entity');
+          cellElement.classList.add(`cell-entity-${direction}`);
         }
 
         this.gridElement.appendChild(cellElement);
       }
     }
   }
+}
+
+function getMovementDirection(prevX, prevY, newX, newY) {
+  // Calculate the movement direction based on the previous and new positions
+  // Assumes a 45-degree isometric grid
+
+  const deltaX = newX - prevX;
+  const deltaY = newY - prevY;
+
+  // Determine the horizontal and vertical movement directions
+  let horizontalDirection = "";
+  let verticalDirection = "";
+
+  if (deltaX > 0) {
+    horizontalDirection = "right";
+  } else if (deltaX < 0) {
+    horizontalDirection = "left";
+  }
+
+  if (deltaY > 0) {
+    verticalDirection = "down";
+  } else if (deltaY < 0) {
+    verticalDirection = "up";
+  }
+
+  // Determine the final movement direction based on the horizontal and vertical directions
+  let movementDirection = "";
+
+  if (horizontalDirection && verticalDirection) {
+    // Diagonal movement
+    movementDirection = `${verticalDirection}-${horizontalDirection}`;
+  } else if (horizontalDirection) {
+    // Horizontal movement
+    movementDirection = horizontalDirection;
+  } else if (verticalDirection) {
+    // Vertical movement
+    movementDirection = verticalDirection;
+  }
+
+  return movementDirection;
 }
 
 document.addEventListener("DOMContentLoaded", function (event) {
