@@ -96,39 +96,46 @@ class App {
     }
   } 
 
-
   static displayGrid(targetX, targetY, direction) {
     this.gridElement.innerHTML = '';
-
+  
     for (let y = 0; y < this.grid.height; y++) {
       for (let x = 0; x < this.grid.width; x++) {
         const cellElement = document.createElement('div');
         cellElement.className = 'cell';
         cellElement.dataset.x = x;
         cellElement.dataset.y = y;
-
+  
         if (this.grid.isSolid(x, y)) {
           cellElement.classList.add('cell-solid');
         }
-
+  
         if (this.grid.isFlora(x, y)) {
           cellElement.classList.add('flora');
         }
-
+  
         if (this.grid.isWater(x, y)) {
           cellElement.classList.add('water');
         }
-
+  
         if (x === targetX && y === targetY) {
+          // Add a glyph element to represent the center of the selected tile
+          const glyphElement = document.createElement('div');
+          glyphElement.className = 'glyph';
+          //glyphElement.innerText = 'G'; // Replace 'G' with the desired glyph
+  
+          // Set the direction class for the glyph element
+          glyphElement.classList.add(`cell-entity-${direction}`);
+  
           cellElement.classList.add('cell-entity');
-          cellElement.classList.add(`cell-entity-${direction}`);
+          cellElement.appendChild(glyphElement);
         }
-
+  
         this.gridElement.appendChild(cellElement);
       }
     }
   }
-}
+}  
 
 function getMovementDirection(prevX, prevY, newX, newY) {
   // Calculate the movement direction based on the previous and new positions

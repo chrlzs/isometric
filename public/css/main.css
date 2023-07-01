@@ -144,3 +144,20 @@ body {
   background-color: var(--purple);
   position: relative;
 }
+
+.glyph:after {
+  content:"";
+  display: block;
+  height: 36px;
+  width: 40px;
+  background-image: url(../img/tree2.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center center;
+  align-items: center;
+  justify-content: center;
+  transform: rotate3d(0, 0, -1, 46deg);
+  position: absolute;
+  left: -18px;
+  top: -15px;
+}
