@@ -95,35 +95,35 @@ class App {
       }, i * delay);
     }
   } 
-
-
+  
   static displayGrid(targetX, targetY, direction) {
     this.gridElement.innerHTML = '';
-
+  
     for (let y = 0; y < this.grid.height; y++) {
       for (let x = 0; x < this.grid.width; x++) {
         const cellElement = document.createElement('div');
         cellElement.className = 'cell';
         cellElement.dataset.x = x;
         cellElement.dataset.y = y;
-
+  
         if (this.grid.isSolid(x, y)) {
           cellElement.classList.add('cell-solid');
         }
-
+  
         if (this.grid.isFlora(x, y)) {
           cellElement.classList.add('flora');
         }
-
+  
         if (this.grid.isWater(x, y)) {
           cellElement.classList.add('water');
         }
-
+  
         if (x === targetX && y === targetY) {
-          cellElement.classList.add('cell-entity');
-          cellElement.classList.add(`cell-entity-${direction}`);
+          const entityElement = document.createElement('div');
+          entityElement.className = `entity entity-${direction}`;
+          cellElement.appendChild(entityElement);
         }
-
+  
         this.gridElement.appendChild(cellElement);
       }
     }

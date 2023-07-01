@@ -100,7 +100,6 @@ body {
   background-repeat: repeat;
   background-size: contain;
   background-position: center 5px;
-  pointer-events: none;
 }
 
 
@@ -143,4 +142,51 @@ body {
 
 .cell-entity {
   background-color: var(--purple);
+}
+
+.entity {
+  /* Common styles for the entity */
+  width: 30px;
+  height: 30px;
+  background-color: red;
+}
+
+.entity-up {
+  animation: move-up 0.5s linear infinite;
+}
+
+.entity-down {
+  animation: move-down 0.5s linear infinite;
+}
+
+.entity-left {
+  animation: move-left 0.5s linear infinite;
+}
+
+.entity-right {
+  animation: move-right 0.5s linear infinite;
+}
+
+@keyframes move-up {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes move-down {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(10px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes move-left {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(-10px); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes move-right {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(10px); }
+  100% { transform: translateX(0); }
 }
