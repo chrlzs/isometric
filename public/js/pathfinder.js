@@ -1,5 +1,5 @@
 class PathFinder {
-  static findPath(grid, entity, startX, startY, targetX, targetY) {
+  static findPath(grid, entity, startX, startY, targetX, targetY, npc) {
     const openSet = new Set(); // The set of nodes to be evaluated
     const cameFrom = new Map(); // Stores the path from a node to its parent
     const gScore = new Map(); // Cost from start along the best-known path
@@ -24,6 +24,11 @@ class PathFinder {
       openSetSize--;
 
       for (const neighbor of grid.getNeighbors(current.x, current.y)) {
+        if (this.isNPCAtPosition(npc, neighbor.x, neighbor.y) && (neighbor.x !== targetNode.x || neighbor.y !== targetNode.y)) {
+          // Skip this neighbor if it's an NPC and not the target position
+          continue;
+        }
+
         const tentativeGScore = gScore.get(current) + 1; // Assuming that moving to a neighbor costs 1
 
         if (!gScore.has(neighbor) || tentativeGScore < gScore.get(neighbor)) {
@@ -38,17 +43,11 @@ class PathFinder {
             openSet.add(neighbor);
             openSetSize++;
           }
-
-          // Stop finding path if neighbor is occupied by the NPC
-          if (entity.isNPCAtPosition(neighbor.x, neighbor.y)) {
-            return null;
-          }
         }
       }
     }
 
     return null; // No path found
-
   }
 
   static heuristicCostEstimate(nodeA, nodeB) {
@@ -77,6 +76,10 @@ class PathFinder {
     }
   
     return lowestFScoreNode;
+  }
+
+  static isNPCAtPosition(npc, x, y) {
+    return npc.x === x && npc.y === y;
   }
 }
 

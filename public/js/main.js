@@ -59,7 +59,8 @@ class App {
         this.player.x,
         this.player.y,
         newX,
-        newY
+        newY,
+        this.npc
       );
   
       if (newPath && newPath.length > 0) {
@@ -165,7 +166,8 @@ class App {
         this.player.x,
         this.player.y,
         newX,
-        newY
+        newY,
+        this.npc
       );
 
       if (newPath && newPath.length > 0) {
