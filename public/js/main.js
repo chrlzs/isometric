@@ -3,17 +3,33 @@ import Grid from "./grid.js";
 import Entity from "./entity.js";
 import PathFinder from "./pathfinder.js";
 
+// TODO: Move this out
+class NPC {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  moveTo(newX, newY) {
+    this.x = newX;
+    this.y = newY;
+  }
+}
+
 class App {
   static grid;
-  static entity;
+  static player;
+  static npc;
   static gridElement;
 
   static init() {
     this.grid = new Grid(10, 10);
-    this.entity = new Entity(0, 0);
+    this.player = new Entity(0, 1);
+    this.npc = new NPC(1, 1);
     this.gridElement = document.querySelector(".grid");
     this.createGrid();
     this.displayGrid();
+    this.updateVersionText();
 
     // Add arrow key event listeners
     document.addEventListener("keydown", (event) => {
@@ -23,35 +39,61 @@ class App {
 
   static handleArrowKey(event) {
     const { key } = event;
-    let newX = this.entity.x;
-    let newY = this.entity.y;
+    let newX = this.player.x;
+    let newY = this.player.y;
 
     switch (key) {
-      case 'ArrowUp':
+      case "ArrowUp":
         newY--;
         break;
-      case 'ArrowDown':
+      case "ArrowDown":
         newY++;
         break;
-      case 'ArrowLeft':
+      case "ArrowLeft":
         newX--;
         break;
-      case 'ArrowRight':
+      case "ArrowRight":
         newX++;
         break;
       default:
         return;
     }
 
-    if (this.grid.isValidPosition(newX, newY) && !this.grid.isSolid(newX, newY)) {
-      const newPath = PathFinder.findPath(this.grid, this.entity, this.entity.x, this.entity.y, newX, newY);
+    if (
+      this.grid.isValidPosition(newX, newY) &&
+      !this.grid.isSolid(newX, newY)
+    ) {
+      const newPath = PathFinder.findPath(
+        this.grid,
+        this.player,
+        this.player.x,
+        this.player.y,
+        newX,
+        newY
+      );
 
       if (newPath && newPath.length > 0) {
         this.animatePath(newPath);
-        this.entity.x = newX;
-        this.entity.y = newY;
+        this.player.x = newX;
+        this.player.y = newY;
+
+        // Check if the player and NPC are on the same position
+        if (this.player.x === this.npc.x && this.player.y === this.npc.y) {
+          this.interactWithNPC();
+        }
       }
     }
+  }
+
+  static interactWithNPC() {
+    // Add your logic for interacting with the NPC here
+    console.log("Interacting with the NPC");
+    // You can update the NPC's position or trigger some action
+    // For example, you can move the NPC to a new random position
+    const newX = Math.floor(Math.random() * this.grid.width);
+    const newY = Math.floor(Math.random() * this.grid.height);
+    this.npc.moveTo(newX, newY);
+    this.displayGrid();
   }
 
   static updateVersionText() {
@@ -80,10 +122,9 @@ class App {
     this.grid.setCell(8, 1, 2);
     this.grid.setCell(8, 2, 2);
     this.grid.setCell(9, 0, 2);
-    this.grid.setCell(10, 0, 1);
-    this.grid.setCell(10, 4, 1);
+    this.grid.setCell(9, 4, 1);
 
-    console.log(this.grid.isSolid(this.entity.x, this.entity.y)); // false
+    console.log(this.grid.isSolid(this.player.x, this.player.y)); // false
 
     this.gridElement.addEventListener("click", (event) => {
       this.handleGridClick(event);
@@ -108,25 +149,25 @@ class App {
 
       const newPath = PathFinder.findPath(
         this.grid,
-        this.entity,
-        this.entity.x,
-        this.entity.y,
+        this.player,
+        this.player.x,
+        this.player.y,
         newX,
         newY
       );
 
       if (newPath && newPath.length > 0) {
         this.animatePath(newPath);
-        this.entity.x = newX;
-        this.entity.y = newY;
+        this.player.x = newX;
+        this.player.y = newY;
       }
     }
   }
 
   static animatePath(path) {
     let delay = 100; // Delay between rendering each cell in milliseconds
-    let prevX = this.entity.x;
-    let prevY = this.entity.y;
+    let prevX = this.player.x;
+    let prevY = this.player.y;
 
     for (let i = 0; i < path.length; i++) {
       const { x, y } = path[i];
@@ -141,7 +182,8 @@ class App {
     }
   }
 
-  static displayGrid(targetX, targetY, direction) {
+
+  static displayGrid(targetX = -1, targetY = -1, direction = "") {
     this.gridElement.innerHTML = "";
 
     for (let y = 0; y < this.grid.height; y++) {
@@ -167,13 +209,20 @@ class App {
           // Add a glyph element to represent the center of the selected tile
           const glyphElement = document.createElement("div");
           glyphElement.className = "glyph";
-          //glyphElement.innerText = 'G'; // Replace 'G' with the desired glyph
+
+          // Check if the current position matches the NPC position
+          if (x === this.npc.x && y === this.npc.y) {
+            // Set the NPC representation
+            cellElement.classList.add("cell-entity", "cell-npc", "yellow");
+          } else {
+            // Set the player representation
+            glyphElement.innerText = "G"; // Replace 'G' with the desired representation for the player
+            cellElement.classList.add("cell-entity");
+          }
 
           // Set the direction class for the glyph element
           glyphElement.classList.add(`cell-entity-${direction}`);
-          console.log(`fuck cell-entity-${direction}`);
 
-          cellElement.classList.add("cell-entity");
           cellElement.appendChild(glyphElement);
         }
 
@@ -181,7 +230,7 @@ class App {
       }
     }
   }
-}
+} 
 
 function getMovementDirection(prevX, prevY, newX, newY) {
   // Calculate the movement direction based on the previous and new positions
@@ -226,3 +275,5 @@ function getMovementDirection(prevX, prevY, newX, newY) {
 document.addEventListener("DOMContentLoaded", function (event) {
   App.init();
 });
+
+
