@@ -185,3 +185,24 @@ body {
 .red {
   background-color:red;
 }
+
+.dialog-box {
+  /* Add styles to position the dialog box */
+  width: 200px;
+  display: block;
+  height: 200px;
+  background-color: green;
+  display: none;
+}
+
+.dialog-content {
+  /* Add styles for the content of the dialog box */
+}
+
+
+.close-button {
+  width: 20px;
+  height: 20px;
+  display: block;
+  background-color: purple;
+}

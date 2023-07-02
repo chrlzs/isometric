@@ -25,7 +25,7 @@ class App {
   static init() {
     this.grid = new Grid(10, 10);
     this.player = new Entity(0, 1);
-    this.npc = new NPC(0, 0);    
+    this.npc = new NPC(0, 0);
     // Place the NPC at a random position on the grid
     this.placeNPC();
     this.gridElement = document.querySelector(".grid");
@@ -78,6 +78,7 @@ class App {
         this.animatePath(newPath);
         this.player.x = newX;
         this.player.y = newY;
+        
       }
     }
   }
@@ -103,6 +104,13 @@ class App {
   static interactWithNPC() {
     // Add your logic for interacting with the NPC here
     console.log("Interacting with the NPC");
+    // Show the dialog box
+    const dialogBox = document.getElementById("dialogBox");
+    dialogBox.style.display = "block";
+
+    // Add your logic for interacting with the NPC here
+    const dialogContent = document.getElementById("dialogContent");
+    dialogContent.innerText = "Hello, NPC! How are you today?";
   }
 
   static updateVersionText() {
@@ -288,4 +296,12 @@ function getMovementDirection(prevX, prevY, newX, newY) {
 
 document.addEventListener("DOMContentLoaded", function (event) {
   App.init();
+});
+
+// Add an event listener to the close button
+const closeButton = document.getElementById("closeButton");
+closeButton.addEventListener("click", () => {
+  // Hide the dialog box
+  const dialogBox = document.getElementById("dialogBox");
+  dialogBox.style.display = "none";
 });
