@@ -92,7 +92,6 @@ body {
   }
 }
 
-
 .cell-solid.flora {
   transform: translateZ(1px);
   transform-style: preserve-3d;
@@ -102,7 +101,6 @@ body {
   background-position: center 5px;
   pointer-events: none;
 }
-
 
 .cell-solid.flora:before{
   transform:rotateX(-90deg) rotateY(20deg) translateY(0em) translateX(0em);
@@ -121,7 +119,6 @@ body {
   filter: drop-shadow(10px -2px 5px rgb(0 0 0 / 0.2));
 }
 
-
 .cell-solid.flora:after {
   transform:rotateX(-90deg) rotateY(20deg) translateY(0em) translateX(0em);
   box-shadow:inset 0em -.125em .25em rgba(0,0,0,.1);
@@ -139,7 +136,6 @@ body {
   background-position: center center;
   filter: drop-shadow(10px -2px 5px rgb(0 0 0 / 0.2));
 }
-
 
 .cell-entity {  
   position: relative;
@@ -161,6 +157,22 @@ body {
   zoom: 1.5;
   animation: play 2s steps(1);
   animation-iteration-count: infinite;
+}
+
+.glyph.cell-entity-right:after {
+  background-position-y: -24px;
+}
+
+.glyph.cell-entity-up:after {
+  background-position-y: -74px;
+}
+
+.glyph.cell-entity-left:after {
+  background-position-y: -48px;
+}
+
+.glyph.cell-entity-down:after {
+  background-position-y: 0px;
 }
 
 @keyframes play {

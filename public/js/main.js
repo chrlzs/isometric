@@ -126,6 +126,7 @@ class App {
   
           // Set the direction class for the glyph element
           glyphElement.classList.add(`cell-entity-${direction}`);
+          console.log(`fuck cell-entity-${direction}`)
   
           cellElement.classList.add('cell-entity');
           cellElement.appendChild(glyphElement);
