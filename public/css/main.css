@@ -181,3 +181,7 @@ body {
   75% {background-position-x: -48px; }
   100% {background-position-x: -64px; }
 }
+
+.red {
+  background-color:red;
+}

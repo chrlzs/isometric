@@ -25,7 +25,9 @@ class App {
   static init() {
     this.grid = new Grid(10, 10);
     this.player = new Entity(0, 1);
-    this.npc = new NPC(1, 1);
+    this.npc = new NPC(0, 0);    
+    // Place the NPC at a random position on the grid
+    this.placeNPC();
     this.gridElement = document.querySelector(".grid");
     this.createGrid();
     this.displayGrid();
@@ -85,6 +87,24 @@ class App {
     }
   }
 
+  static placeNPC() {
+    // Generate random coordinates within the grid boundaries
+    const newX = Math.floor(Math.random() * this.grid.width);
+    const newY = Math.floor(Math.random() * this.grid.height);
+
+    // Check if the generated coordinates are valid and not blocked by a solid object
+    if (
+      this.grid.isValidPosition(newX, newY) &&
+      !this.grid.isSolid(newX, newY)
+    ) {
+      this.grid.setCellDataAttribute(newX, newY, "test", "charlie");
+      this.npc.moveTo(newX, newY);
+    } else {
+      // If the generated coordinates are not valid, recursively try again until a valid position is found
+      this.placeNPC();
+    }
+  }
+
   static interactWithNPC() {
     // Add your logic for interacting with the NPC here
     console.log("Interacting with the NPC");
@@ -123,8 +143,6 @@ class App {
     this.grid.setCell(8, 2, 2);
     this.grid.setCell(9, 0, 2);
     this.grid.setCell(9, 4, 1);
-
-    console.log(this.grid.isSolid(this.player.x, this.player.y)); // false
 
     this.gridElement.addEventListener("click", (event) => {
       this.handleGridClick(event);
@@ -182,7 +200,6 @@ class App {
     }
   }
 
-
   static displayGrid(targetX = -1, targetY = -1, direction = "") {
     this.gridElement.innerHTML = "";
 
@@ -205,6 +222,11 @@ class App {
           cellElement.classList.add("water");
         }
 
+        // Check if the current position matches the NPC position
+        if (x === this.npc.x && y === this.npc.y) {
+          cellElement.classList.add("cell-entity", "cell-npc", "red"); // Reapply the red CSS class
+        }
+
         if (x === targetX && y === targetY) {
           // Add a glyph element to represent the center of the selected tile
           const glyphElement = document.createElement("div");
@@ -212,11 +234,11 @@ class App {
 
           // Check if the current position matches the NPC position
           if (x === this.npc.x && y === this.npc.y) {
-            // Set the NPC representation
+            // NPC position matching
             cellElement.classList.add("cell-entity", "cell-npc", "yellow");
           } else {
-            // Set the player representation
-            glyphElement.innerText = "G"; // Replace 'G' with the desired representation for the player
+            // Player position or empty cell
+            glyphElement.innerText = "G";
             cellElement.classList.add("cell-entity");
           }
 
@@ -231,9 +253,9 @@ class App {
     }
     //TODO: Remove - these methods are just validating usage
     this.grid.addClassToCell(2, 3, "highlight");
-    this.grid.setCellDataAttribute(2, 3, "test", "ABC"); 
+    this.grid.setCellDataAttribute(2, 3, "test", "ABC");
   }
-} 
+}
 
 function getMovementDirection(prevX, prevY, newX, newY) {
   // Calculate the movement direction based on the previous and new positions
@@ -278,5 +300,3 @@ function getMovementDirection(prevX, prevY, newX, newY) {
 document.addEventListener("DOMContentLoaded", function (event) {
   App.init();
 });
-
-
