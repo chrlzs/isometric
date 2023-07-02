@@ -51,6 +51,31 @@ class Grid {
     return null;
   }
 
+  addClassToCell(x, y, className) {
+    if (this.isValidPosition(x, y)) {
+      const cell = this.getCellElement(x, y);
+      if (cell) {
+        cell.classList.add(className);
+      }
+    }
+  }
+
+  removeClassFromCell(x, y, className) {
+    if (this.isValidPosition(x, y)) {
+      const cell = this.getCellElement(x, y);
+      if (cell) {
+        cell.classList.remove(className);
+      }
+    }
+  }
+
+   // Helper method to get the DOM element representing a cell
+   getCellElement(x, y) {
+    const cellSelector = `.cell[data-x="${x}"][data-y="${y}"]`;
+    return document.querySelector(cellSelector);
+  }
+
+
   getNeighbors(x, y) {
     const neighbors = [];
     const directions = [
@@ -72,4 +97,4 @@ class Grid {
   }
 }
 
-export default Grid;
+export { Grid as default };

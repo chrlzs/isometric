@@ -229,6 +229,7 @@ class App {
         this.gridElement.appendChild(cellElement);
       }
     }
+    this.grid.addClassToCell(2, 3, "highlight");
   }
 } 
 
