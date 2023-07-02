@@ -141,23 +141,30 @@ body {
 
 
 .cell-entity {  
-  background-color: var(--purple);
   position: relative;
 }
 
 .glyph:after {
   content:"";
   display: block;
-  height: 36px;
-  width: 40px;
-  background-image: url(../img/tree2.svg);
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center center;
-  align-items: center;
-  justify-content: center;
-  transform: rotate3d(0, 0, -1, 46deg);
   position: absolute;
-  left: -18px;
-  top: -15px;
+  background-image: url(../img/character.png);
+  background-repeat: no-repeat;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  top: 0;
+  width: 16px;
+  height: 24px;
+  transform: rotate3d(0, 0, -1, 46deg);
+  zoom: 1.5;
+  animation: play 2s steps(1);
+  animation-iteration-count: infinite;
+}
+
+@keyframes play {
+  25% {background-position-x: -16px; }
+  50% {background-position-x: -32px; }
+  75% {background-position-x: -48px; }
+  100% {background-position-x: -64px; }
 }
