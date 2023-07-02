@@ -11,9 +11,47 @@ class App {
   static init() {
     this.grid = new Grid(10, 10);
     this.entity = new Entity(0, 0);
-    this.gridElement = document.querySelector('.grid');
+    this.gridElement = document.querySelector(".grid");
     this.createGrid();
     this.displayGrid();
+
+    // Add arrow key event listeners
+    document.addEventListener("keydown", (event) => {
+      this.handleArrowKey(event);
+    });
+  }
+
+  static handleArrowKey(event) {
+    const { key } = event;
+    let newX = this.entity.x;
+    let newY = this.entity.y;
+
+    switch (key) {
+      case 'ArrowUp':
+        newY--;
+        break;
+      case 'ArrowDown':
+        newY++;
+        break;
+      case 'ArrowLeft':
+        newX--;
+        break;
+      case 'ArrowRight':
+        newX++;
+        break;
+      default:
+        return;
+    }
+
+    if (this.grid.isValidPosition(newX, newY) && !this.grid.isSolid(newX, newY)) {
+      const newPath = PathFinder.findPath(this.grid, this.entity, this.entity.x, this.entity.y, newX, newY);
+
+      if (newPath && newPath.length > 0) {
+        this.animatePath(newPath);
+        this.entity.x = newX;
+        this.entity.y = newY;
+      }
+    }
   }
 
   static updateVersionText() {
@@ -47,7 +85,7 @@ class App {
 
     console.log(this.grid.isSolid(this.entity.x, this.entity.y)); // false
 
-    this.gridElement.addEventListener('click', (event) => {
+    this.gridElement.addEventListener("click", (event) => {
       this.handleGridClick(event);
     });
   }
@@ -68,7 +106,14 @@ class App {
         return;
       }
 
-      const newPath = PathFinder.findPath(this.grid, this.entity, this.entity.x, this.entity.y, newX, newY);
+      const newPath = PathFinder.findPath(
+        this.grid,
+        this.entity,
+        this.entity.x,
+        this.entity.y,
+        newX,
+        newY
+      );
 
       if (newPath && newPath.length > 0) {
         this.animatePath(newPath);
@@ -94,49 +139,49 @@ class App {
         this.displayGrid(x, y, direction);
       }, i * delay);
     }
-  } 
+  }
 
   static displayGrid(targetX, targetY, direction) {
-    this.gridElement.innerHTML = '';
-  
+    this.gridElement.innerHTML = "";
+
     for (let y = 0; y < this.grid.height; y++) {
       for (let x = 0; x < this.grid.width; x++) {
-        const cellElement = document.createElement('div');
-        cellElement.className = 'cell';
+        const cellElement = document.createElement("div");
+        cellElement.className = "cell";
         cellElement.dataset.x = x;
         cellElement.dataset.y = y;
-  
+
         if (this.grid.isSolid(x, y)) {
-          cellElement.classList.add('cell-solid');
+          cellElement.classList.add("cell-solid");
         }
-  
+
         if (this.grid.isFlora(x, y)) {
-          cellElement.classList.add('flora');
+          cellElement.classList.add("flora");
         }
-  
+
         if (this.grid.isWater(x, y)) {
-          cellElement.classList.add('water');
+          cellElement.classList.add("water");
         }
-  
+
         if (x === targetX && y === targetY) {
           // Add a glyph element to represent the center of the selected tile
-          const glyphElement = document.createElement('div');
-          glyphElement.className = 'glyph';
+          const glyphElement = document.createElement("div");
+          glyphElement.className = "glyph";
           //glyphElement.innerText = 'G'; // Replace 'G' with the desired glyph
-  
+
           // Set the direction class for the glyph element
           glyphElement.classList.add(`cell-entity-${direction}`);
-          console.log(`fuck cell-entity-${direction}`)
-  
-          cellElement.classList.add('cell-entity');
+          console.log(`fuck cell-entity-${direction}`);
+
+          cellElement.classList.add("cell-entity");
           cellElement.appendChild(glyphElement);
         }
-  
+
         this.gridElement.appendChild(cellElement);
       }
     }
   }
-}  
+}
 
 function getMovementDirection(prevX, prevY, newX, newY) {
   // Calculate the movement direction based on the previous and new positions
