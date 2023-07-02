@@ -1,20 +1,8 @@
 import Version from "./version.js";
 import Grid from "./grid.js";
-import Entity from "./entity.js";
+import NPC from './npc.js';
+import Player from './player.js';
 import PathFinder from "./pathfinder.js";
-
-// TODO: Move this out
-class NPC {
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
-  }
-
-  moveTo(newX, newY) {
-    this.x = newX;
-    this.y = newY;
-  }
-}
 
 class App {
   static grid;
@@ -24,7 +12,7 @@ class App {
 
   static init() {
     this.grid = new Grid(10, 10);
-    this.player = new Entity(0, 1);
+    this.player = new Player(0, 1);
     this.npc = new NPC(0, 0);
     // Place the NPC at a random position on the grid
     this.placeNPC();
@@ -43,7 +31,7 @@ class App {
     const { key } = event;
     let newX = this.player.x;
     let newY = this.player.y;
-
+  
     switch (key) {
       case "ArrowUp":
         newY--;
@@ -60,7 +48,7 @@ class App {
       default:
         return;
     }
-
+  
     if (
       this.grid.isValidPosition(newX, newY) &&
       !this.grid.isSolid(newX, newY)
@@ -73,15 +61,24 @@ class App {
         newX,
         newY
       );
-
+  
       if (newPath && newPath.length > 0) {
+        const lastPathCell = newPath[newPath.length - 1];
+        const npcPosition = { x: this.npc.x, y: this.npc.y };
+  
+        if (lastPathCell.x === npcPosition.x && lastPathCell.y === npcPosition.y) {
+          // Player has reached the NPC, stop player's movement
+          this.interactWithNPC();
+          return;
+        }
+  
         this.animatePath(newPath);
         this.player.x = newX;
         this.player.y = newY;
-        
       }
     }
   }
+  
 
   static placeNPC() {
     // Generate random coordinates within the grid boundaries

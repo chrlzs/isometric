@@ -38,11 +38,17 @@ class PathFinder {
             openSet.add(neighbor);
             openSetSize++;
           }
+
+          // Stop finding path if neighbor is occupied by the NPC
+          if (entity.isNPCAtPosition(neighbor.x, neighbor.y)) {
+            return null;
+          }
         }
       }
     }
 
     return null; // No path found
+
   }
 
   static heuristicCostEstimate(nodeA, nodeB) {
