@@ -229,7 +229,9 @@ class App {
         this.gridElement.appendChild(cellElement);
       }
     }
+    //TODO: Remove - these methods are just validating usage
     this.grid.addClassToCell(2, 3, "highlight");
+    this.grid.setCellDataAttribute(2, 3, "test", "ABC"); 
   }
 } 
 

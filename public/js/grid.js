@@ -69,12 +69,29 @@ class Grid {
     }
   }
 
+  setCellDataAttribute(x, y, attributeName, attributeValue) {
+    if (this.isValidPosition(x, y)) {
+      const cell = this.getCellElement(x, y);
+      if (cell) {
+        cell.setAttribute(`data-${attributeName}`, attributeValue);
+      }
+    }
+  }
+
+  removeCellDataAttribute(x, y, attributeName) {
+    if (this.isValidPosition(x, y)) {
+      const cell = this.getCellElement(x, y);
+      if (cell) {
+        cell.removeAttribute(`data-${attributeName}`);
+      }
+    }
+  }
+
    // Helper method to get the DOM element representing a cell
    getCellElement(x, y) {
     const cellSelector = `.cell[data-x="${x}"][data-y="${y}"]`;
     return document.querySelector(cellSelector);
   }
-
 
   getNeighbors(x, y) {
     const neighbors = [];
