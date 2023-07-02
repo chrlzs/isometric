@@ -78,11 +78,6 @@ class App {
         this.animatePath(newPath);
         this.player.x = newX;
         this.player.y = newY;
-
-        // Check if the player and NPC are on the same position
-        if (this.player.x === this.npc.x && this.player.y === this.npc.y) {
-          this.interactWithNPC();
-        }
       }
     }
   }
@@ -108,12 +103,6 @@ class App {
   static interactWithNPC() {
     // Add your logic for interacting with the NPC here
     console.log("Interacting with the NPC");
-    // You can update the NPC's position or trigger some action
-    // For example, you can move the NPC to a new random position
-    const newX = Math.floor(Math.random() * this.grid.width);
-    const newY = Math.floor(Math.random() * this.grid.height);
-    this.npc.moveTo(newX, newY);
-    this.displayGrid();
   }
 
   static updateVersionText() {
@@ -234,8 +223,8 @@ class App {
 
           // Check if the current position matches the NPC position
           if (x === this.npc.x && y === this.npc.y) {
-            // NPC position matching
-            cellElement.classList.add("cell-entity", "cell-npc", "yellow");
+            this.interactWithNPC();
+            //cellElement.classList.add("cell-entity", "cell-npc", "yellow");
           } else {
             // Player position or empty cell
             glyphElement.innerText = "G";
