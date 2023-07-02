@@ -1,2 +1,2 @@
 # isometric
-isometric demo
+isometric game - WIP
