@@ -103,11 +103,12 @@ class App {
     // Add your logic for interacting with the NPC here
     console.log("Interacting with the NPC");
     // Show the dialog box
+    // Show the dialog box
     const dialogBox = document.getElementById("dialogBox");
+    const modalOverlay = document.createElement("div");
+    modalOverlay.className = "modal-overlay";
+    document.body.appendChild(modalOverlay);
     dialogBox.style.display = "block";
-
-    // Add your logic for interacting with the NPC here
-    const dialogContent = document.getElementById("dialogContent");
     dialogContent.innerText = "Hello, NPC! How are you today?";
   }
 
@@ -303,4 +304,10 @@ closeButton.addEventListener("click", () => {
   // Hide the dialog box
   const dialogBox = document.getElementById("dialogBox");
   dialogBox.style.display = "none";
+
+  // Remove the modal overlay
+  const modalOverlay = document.querySelector(".modal-overlay");
+  if (modalOverlay) {
+    modalOverlay.remove();
+  }
 });
