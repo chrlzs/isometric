@@ -236,3 +236,7 @@ body {
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 9998;
 }
+
+.close-button {
+  z-index: 999999999;
+}

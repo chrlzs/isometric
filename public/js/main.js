@@ -1,8 +1,10 @@
 import Version from "./version.js";
 import Grid from "./grid.js";
-import NPC from './npc.js';
-import Player from './player.js';
+import NPC from "./npc.js";
+import Player from "./player.js";
 import PathFinder from "./pathfinder.js";
+
+let dialogShown = false; // Flag to track if the dialog box has been shown
 
 class App {
   static grid;
@@ -31,7 +33,7 @@ class App {
     const { key } = event;
     let newX = this.player.x;
     let newY = this.player.y;
-  
+
     switch (key) {
       case "ArrowUp":
         newY--;
@@ -48,38 +50,37 @@ class App {
       default:
         return;
     }
-  
+
     if (
       this.grid.isValidPosition(newX, newY) &&
       !this.grid.isSolid(newX, newY)
     ) {
-      const newPath = PathFinder.findPath(
-        this.grid,
-        this.player,
-        this.player.x,
-        this.player.y,
-        newX,
-        newY,
-        this.npc
-      );
-  
-      if (newPath && newPath.length > 0) {
-        const lastPathCell = newPath[newPath.length - 1];
-        const npcPosition = { x: this.npc.x, y: this.npc.y };
-  
-        if (lastPathCell.x === npcPosition.x && lastPathCell.y === npcPosition.y) {
-          // Player has reached the NPC, stop player's movement
-          this.interactWithNPC();
-          return;
+      const targetCellOccupiedByNPC =
+        this.npc.x === newX && this.npc.y === newY;
+
+      if (targetCellOccupiedByNPC) {
+        // Player has reached the NPC, stop player's movement and interact with the NPC
+        this.interactWithNPC();
+      } else {
+        // Continue with regular movement
+        const newPath = PathFinder.findPath(
+          this.grid,
+          this.player,
+          this.player.x,
+          this.player.y,
+          newX,
+          newY,
+          this.npc
+        );
+
+        if (newPath && newPath.length > 0) {
+          this.animatePath(newPath);
+          this.player.x = newX;
+          this.player.y = newY;
         }
-  
-        this.animatePath(newPath);
-        this.player.x = newX;
-        this.player.y = newY;
       }
     }
   }
-  
 
   static placeNPC() {
     // Generate random coordinates within the grid boundaries
@@ -101,15 +102,19 @@ class App {
 
   static interactWithNPC() {
     // Add your logic for interacting with the NPC here
-    console.log("Interacting with the NPC");
-    // Show the dialog box
-    // Show the dialog box
-    const dialogBox = document.getElementById("dialogBox");
-    const modalOverlay = document.createElement("div");
-    modalOverlay.className = "modal-overlay";
-    document.body.appendChild(modalOverlay);
-    dialogBox.style.display = "block";
-    dialogContent.innerText = "Hello, NPC! How are you today?";
+    if (dialogShown) {
+      dialogShown = false;
+    } else {
+      console.log("Interacting with the NPC");
+      // Show the dialog box
+      const dialogBox = document.getElementById("dialogBox");
+      const modalOverlay = document.createElement("div");
+      modalOverlay.className = "modal-overlay";
+      document.body.appendChild(modalOverlay);
+      dialogBox.style.display = "block";
+      dialogContent.innerText = "Hello, NPC! How are you today?";
+      dialogShown = true;
+    }
   }
 
   static updateVersionText() {
