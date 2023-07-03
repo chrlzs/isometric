@@ -14,8 +14,8 @@ class App {
 
   static init() {
     this.grid = new Grid(10, 10);
-    this.player = new Player(0, 1);
-    this.npc = new NPC(0, 0);
+    this.player = new Player(0, 1, 100);
+    this.npc = new NPC(0, 0, 100);
     // Place the NPC at a random position on the grid
     this.placeNPC();
     this.gridElement = document.querySelector(".grid");

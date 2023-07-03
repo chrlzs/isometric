@@ -1,5 +1,5 @@
 class Entity {
-    constructor(x, y) {
+    constructor(x, y, hitPoints) {
       this.x = x;
       this.y = y;
       this.hitPoints = hitPoints;
