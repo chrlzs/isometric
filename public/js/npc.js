@@ -1,8 +1,8 @@
 import Entity from './entity.js';
 
 class NPC extends Entity {
-  constructor(x, y) {
-    super(x, y);
+  constructor(x, y, hitPoints) {
+    super(x, y, hitPoints);
     // Additional properties or methods specific to the NPC can be added here
   }
 

@@ -1,8 +1,8 @@
 import Entity from './entity.js';
 
 class Player extends Entity {
-  constructor(x, y) {
-    super(x, y);
+  constructor(x, y, hitPoints) {
+    super(x, y, hitPoints);
     // Additional properties or methods specific to the player can be added here
   }
 
