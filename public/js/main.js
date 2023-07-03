@@ -33,7 +33,7 @@ class App {
     const { key } = event;
     let newX = this.player.x;
     let newY = this.player.y;
-
+  
     switch (key) {
       case "ArrowUp":
         newY--;
@@ -50,14 +50,10 @@ class App {
       default:
         return;
     }
-
-    if (
-      this.grid.isValidPosition(newX, newY) &&
-      !this.grid.isSolid(newX, newY)
-    ) {
-      const targetCellOccupiedByNPC =
-        this.npc.x === newX && this.npc.y === newY;
-
+  
+    if (this.grid.isValidPosition(newX, newY) && !this.grid.isSolid(newX, newY)) {
+      const targetCellOccupiedByNPC = this.npc.x === newX && this.npc.y === newY;
+  
       if (targetCellOccupiedByNPC) {
         // Player has reached the NPC, stop player's movement and interact with the NPC
         this.interactWithNPC();
@@ -72,7 +68,7 @@ class App {
           newY,
           this.npc
         );
-
+  
         if (newPath && newPath.length > 0) {
           this.animatePath(newPath);
           this.player.x = newX;
@@ -81,6 +77,7 @@ class App {
       }
     }
   }
+  
 
   static placeNPC() {
     // Generate random coordinates within the grid boundaries
@@ -105,17 +102,18 @@ class App {
     if (dialogShown) {
       dialogShown = false;
     } else {
-      console.log("Interacting with the NPC");
-      // Show the dialog box
-      const dialogBox = document.getElementById("dialogBox");
-      const modalOverlay = document.createElement("div");
-      modalOverlay.className = "modal-overlay";
-      document.body.appendChild(modalOverlay);
-      dialogBox.style.display = "block";
-      dialogContent.innerText = "Hello, NPC! How are you today?";
-      dialogShown = true;
-    }
+          console.log("Interacting with the NPC");
+    // Show the dialog box
+    const dialogBox = document.getElementById("dialogBox");
+    const modalOverlay = document.createElement("div");
+    modalOverlay.className = "modal-overlay";
+    document.body.appendChild(modalOverlay);
+    dialogBox.style.display = "block";
+    dialogContent.innerText = "Hello, NPC! How are you today?";
+    dialogShown = true;
   }
+    }
+
 
   static updateVersionText() {
     let ver = new Version();
