@@ -186,6 +186,10 @@ body {
   background-color:red;
 }
 
+.cell-enemy {
+  background-color:yellow;
+}
+
 .dialog-box {
   /* Add styles to position the dialog box */
   width: 200px;
