@@ -26,43 +26,12 @@ class App {
     this.createGrid();
     this.displayGrid();
     this.updateVersionText();
-    this.moveEnemy();
 
     // Add arrow key event listeners
     document.addEventListener("keydown", (event) => {
       this.handleArrowKey(event);
     });
   }
-
-  static moveEnemy() {
-    const targetX = this.player.x;
-    const targetY = this.player.y;
-
-    const newPath = PathFinder.findPath(
-      this.grid,
-      this.enemy,
-      this.enemy.x,
-      this.enemy.y,
-      targetX,
-      targetY,
-      this.player
-    );
-
-    if (newPath && newPath.length > 0) {
-      const nextPosition = newPath[0];
-      const { x, y } = nextPosition;
-
-      if (!this.grid.isSolid(x, y)) {
-        this.enemy.moveTo(x, y);
-      }
-    }
-
-    // Schedule the next enemy movement
-    setTimeout(() => {
-      this.moveEnemy();
-    }, 1000); // Adjust the delay as needed
-  }
-
 
   static handleArrowKey(event) {
     const { key } = event;
@@ -284,11 +253,6 @@ typeText();
         // Check if the current position matches the NPC position
         if (x === this.npc.x && y === this.npc.y) {
           cellElement.classList.add("cell-entity", "cell-npc", "red"); // Reapply the red CSS class
-        }
-
-        // Check if the current position matches the enemy position
-        if (x === this.enemy.x && y === this.enemy.y) {
-          cellElement.classList.add("cell-entity", "cell-enemy"); // Add the CSS class for the enemy
         }
 
         if (x === targetX && y === targetY) {
