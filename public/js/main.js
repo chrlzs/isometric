@@ -1,9 +1,9 @@
-import Version from "./version.js";
-import Grid from "./grid.js";
-import NPC from "./npc.js";
-import Player from "./player.js";
-import Enemy from "./enemy.js";
-import PathFinder from "./pathfinder.js";
+import Version from "./utils/version.js";
+import Grid from "./core/grid.js";
+import NPC from "./entities/npc.js";
+import Player from "./entities/player.js";
+import Enemy from "./entities/enemy.js";
+import PathFinder from "./core/pathfinder.js";
 
 let dialogShown = false; // Flag to track if the dialog box has been shown
 
