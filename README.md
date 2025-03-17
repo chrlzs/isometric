@@ -1,72 +1,83 @@
 # Isometric Game Application
 
-This is an isometric game application built with JavaScript. It includes features such as player movement, NPC interactions, and grid-based gameplay.
+A sophisticated isometric game application built with vanilla JavaScript, featuring dynamic world generation, quest systems, and advanced entity management.
+
+## Features
+
+- **Dynamic World Generation**
+  - Chunk-based world system with efficient rendering
+  - Plot system for procedural world generation
+  - Day/night cycle with dynamic lighting
+  - Weather system effects
+
+- **Character Systems**
+  - Player movement and combat
+  - Equipment and inventory management
+  - Health and damage systems
+  - NPC interactions with dialog trees
+  - Enemy AI and combat
+
+- **Quest System**
+  - Dynamic quest tracking
+  - Multiple objectives support
+  - Rewards system
+  - Quest log UI
+
+- **Advanced Features**
+  - Pathfinding with chunked calculations
+  - Mini-map system
+  - Save/Load functionality
+  - Item database with different types (weapons, armor, consumables)
+  - Tooltip system
+  - Debug utilities
 
 ## Installation
 
-1. Clone the repository to your local machine:
-
-   ```
+1. Clone the repository:
+   ```bash
    git clone <repository-url>
    ```
 
 2. Navigate to the project directory:
-
-   ```
+   ```bash
    cd isometric-game
    ```
 
-3. Install dependencies using npm:
-
-   ```
+3. Install dependencies:
+   ```bash
    npm install
    ```
 
 ## Usage
 
-1. Start the server:
-
-   ```
+1. Start the development server:
+   ```bash
    npm start
    ```
 
-2. Open your web browser and navigate to [http://localhost:3000](http://localhost:3000) to play the game.
+2. Open your browser and navigate to [http://localhost:3000](http://localhost:3000)
 
-## Features
+## Game Controls
 
-- Player movement with arrow keys
-- Interaction with NPCs
-- Grid-based gameplay
-- Dynamic rendering of the game world
+- Arrow keys for movement
+- Click to move to a location
+- 'I' to open inventory
+- 'Q' to open quest log
+- Interact with NPCs by moving adjacent to them
+
+## Technical Architecture
+
+- Modular JavaScript with ES6 modules
+- Entity component system for game objects
+- Event-driven architecture
+- Efficient chunk-based world rendering
+- Custom pathfinding implementation
 
 ## Contributing
 
-Contributions are welcome! Feel free to open issues or submit pull requests.
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
 
-## Code Summary:
-
-The App class is defined with various static methods. The init method initializes the game by creating instances of Grid, Player, NPC, and Enemy. It also sets up event listeners for arrow key presses.
-
-The handleArrowKey method handles the arrow key events and updates the player's position accordingly. It also checks for interactions with the NPC and updates the game state accordingly.
-
-The placeNPC method generates random coordinates for placing the NPC on the grid. It recursively tries again if the generated coordinates are not valid.
-
-The interactWithNPC method handles the logic for interacting with the NPC. It shows or hides a dialog box and displays a text message.
-
-The updateVersionText method retrieves the version number using the Version class and updates the page title accordingly.
-
-The setPageTitle method sets the page title with the provided version number.
-
-The createGrid method initializes the grid by setting cells with specific values. It also sets up a click event listener for the grid.
-
-The handleGridClick method handles the click events on the grid and updates the player's position accordingly.
-
-The animatePath method animates the player's movement along a given path by displaying the grid cells sequentially.
-
-The displayGrid method renders the grid by creating cell elements and applying CSS classes based on the grid state. It also handles the display of the player and the interaction with the NPC.
-
-The getMovementDirection function calculates the movement direction based on the previous and new positions of the player.

@@ -2,19 +2,109 @@
 <html>
   <head>
     <title>Grid</title>
+    <link rel="stylesheet" href="/css/colors.css" />
     <link rel="stylesheet" href="/css/main.css" />
-    <script src="/js/main.js" type="module"></script>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="css/health-display.css">
+    <link rel="stylesheet" href="css/combat-modal.css">
+    <style>
+      .cell[class*="structure-"] {
+        z-index: 1;
+        transition: all 0.3s ease-out;
+        position: relative;
+        transform-style: preserve-3d;
+        transform: translateZ(8px);
+      }
+
+      .cell.structure-tavern {
+        background-color: #8B4513;
+        background-image: 
+          linear-gradient(45deg, #654321 25%, transparent 25%),
+          linear-gradient(-45deg, #654321 25%, transparent 25%);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      }
+
+      .cell.structure-market {
+        background-color: #DAA520;
+        background-image: 
+          radial-gradient(circle at 30% 30%, #FFD700 4px, transparent 4px),
+          radial-gradient(circle at 70% 70%, #FFD700 4px, transparent 4px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      }
+
+      .cell.structure-temple {
+        background-color: #F0E68C;
+        background-image: 
+          linear-gradient(90deg, transparent 50%, rgba(255,255,255,0.2) 50%),
+          linear-gradient(0deg, transparent 50%, rgba(255,255,255,0.2) 50%);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      }
+
+      .cell.structure-blacksmith {
+        background-color: #696969;
+        background-image: 
+          radial-gradient(circle at 30% 30%, #A9A9A9 2px, transparent 2px),
+          linear-gradient(45deg, #8B0000 10%, transparent 10%);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      }
+
+      .cell.structure-garden {
+        background-color: #228B22;
+        background-image: 
+          radial-gradient(circle at 25% 25%, #90EE90 4px, transparent 4px),
+          radial-gradient(circle at 75% 75%, #90EE90 4px, transparent 4px),
+          radial-gradient(circle at 50% 50%, #90EE90 4px, transparent 4px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      }
+
+      .cell.structure-placing {
+        animation: structurePlacement 0.5s ease-out;
+      }
+
+      @keyframes structurePlacement {
+        0% {
+          transform: translateZ(32px) scale(0.5);
+          opacity: 0;
+        }
+        50% {
+          transform: translateZ(16px) scale(1.2);
+          opacity: 0.8;
+        }
+        100% {
+          transform: translateZ(8px) scale(1);
+          opacity: 1;
+        }
+      }
+    </style>
   </head>
   <body>
     <div id="stage">
-      <div class="grid"></div>
+      <div class="grid-container">
+        <div class="grid">
+          <!-- Grid cells will be generated here -->
+        </div>
+      </div>
     </div>
     <div id="dialogBox" class="dialog-box">        
       <button id="closeButton" class="close-button">Close</button>
-      <div id="dialogContent" class="dialog-content">
-
-        <!-- Dialog content goes here -->
+      <div id="dialogContent" class="dialog-content"></div>
+    </div>
+    <div id="questLog" class="quest-log">
+      <div class="quest-log-header">
+        <h2>Quest Log</h2>
+        <button id="closeQuestLog" class="close-button">×</button>
       </div>
-    </div>    
+      <div class="quest-log-tabs">
+        <button class="quest-tab active" data-tab="active">Active</button>
+        <button class="quest-tab" data-tab="completed">Completed</button>
+      </div>
+      <div id="questLogContent" class="quest-log-content">
+        <!-- Quests will be dynamically inserted here -->
+      </div>
+    </div>
+    <button id="toggleQuestLog" class="toggle-quest-log">
+      Quest Log [Q]
+    </button>
+    <script type="module" src="/js/main.js"></script>
   </body>
 </html>

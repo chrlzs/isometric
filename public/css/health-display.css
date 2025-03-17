@@ -1,0 +1,42 @@
+.health-display {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid #333;
+    z-index: 1000;
+    min-width: 200px;
+}
+
+.player-name {
+    color: #fff;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.health-bar {
+    background: #3c1414;
+    height: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.health-bar-fill {
+    background: linear-gradient(to right, #ff3030, #ff0000);
+    height: 100%;
+    width: 100%;
+    transition: width 0.3s ease-in-out;
+}
+
+.health-text {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+    line-height: 20px;
+}

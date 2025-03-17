@@ -1,0 +1,79 @@
+.combat-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.combat-modal {
+    background: #2a2a2a;
+    border: 3px solid #gold;
+    border-radius: 10px;
+    padding: 20px;
+    width: 500px;
+    color: white;
+}
+
+.combat-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.combatant {
+    text-align: center;
+    width: 45%;
+}
+
+.combatant-image {
+    width: 100px;
+    height: 100px;
+    margin: 10px auto;
+    border: 2px solid #gold;
+    border-radius: 5px;
+}
+
+.combat-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.combat-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.attack-button {
+    background: #ff3030;
+    color: white;
+}
+
+.retreat-button {
+    background: #666;
+    color: white;
+}
+
+.combat-button:hover {
+    filter: brightness(1.2);
+}
+
+.combat-log {
+    margin-top: 20px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    max-height: 100px;
+    overflow-y: auto;
+}
