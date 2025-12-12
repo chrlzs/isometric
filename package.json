@@ -28,6 +28,6 @@
   },
   "homepage": "https://github.com/chrlzs/vanilla-styles#readme",
   "dependencies": {
-    "express": "^4.21.2"
+    "express": "^4.22.0"
   }
 }
